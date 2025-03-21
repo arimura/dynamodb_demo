@@ -2,12 +2,18 @@
 
 # Default AWS region
 AWS_REGION ?= us-east-1
+TABLE_NAME ?= "segment_sample"
 
 # List all DynamoDB tables in the specified AWS region
 list-dynamodb-tables:
 	@echo "Listing DynamoDB tables in region: $(AWS_REGION)"
 	aws dynamodb list-tables --region $(AWS_REGION)
 
+drop-dynamodb-table:
+	@echo "Dropping DynamoDB table in region: $(AWS_REGION)"
+	aws dynamodb delete-table --table-name $(TABLE_NAME) --region $(AWS_REGION)
+
+ 
 tf-apply:
 	cd terraform && terraform init && terraform apply
 	cd ..
