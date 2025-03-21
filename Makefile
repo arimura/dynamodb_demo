@@ -8,6 +8,10 @@ list-dynamodb-tables:
 	@echo "Listing DynamoDB tables in region: $(AWS_REGION)"
 	aws dynamodb list-tables --region $(AWS_REGION)
 
+tf-apply:
+	cd terraform && terraform init && terraform apply
+	cd ..
+
 # Help target
 help:
 	@echo "Available targets:"
