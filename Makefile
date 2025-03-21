@@ -12,7 +12,6 @@ list-dynamodb-tables:
 drop-dynamodb-table:
 	@echo "Dropping DynamoDB table in region: $(AWS_REGION)"
 	aws dynamodb delete-table --table-name $(TABLE_NAME) --region $(AWS_REGION)
-
  
 tf-apply:
 	cd terraform && terraform init && terraform apply
