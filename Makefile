@@ -3,6 +3,12 @@
 # Default AWS region
 AWS_REGION ?= us-east-1
 TABLE_NAME ?= "segment_sample"
+SAMPLE_FILE ?= "data/sample-segmet1.csv"
+
+# Run targets
+run-import-uuids:
+	@echo "Running import-uuids tool with sample data..."
+	go run ./cmd/import-uuids -file $(SAMPLE_FILE) -table $(TABLE_NAME)
 
 # List all DynamoDB tables in the specified AWS region
 list-dynamodb-tables:
@@ -21,12 +27,18 @@ tf-apply:
 help:
 	@echo "Available targets:"
 	@echo "  list-dynamodb-tables - List all DynamoDB tables in the specified AWS region"
+	@echo "  run-import-uuids - Run the import-uuids tool with sample data"
+	@echo "  tf-apply - Apply Terraform configuration to create DynamoDB table"
+	@echo "  drop-dynamodb-table - Delete the DynamoDB table"
 	@echo ""
 	@echo "Parameters:"
 	@echo "  AWS_REGION - AWS region to use (default: us-east-1)"
+	@echo "  TABLE_NAME - DynamoDB table name (default: segment_sample)"
+	@echo "  SAMPLE_FILE - Sample data file path (default: data/sample-segmet1.csv)"
 	@echo ""
 	@echo "Example usage:"
 	@echo "  make list-dynamodb-tables"
-	@echo "  make list-dynamodb-tables AWS_REGION=us-west-2"
+	@echo "  make run-import-uuids"
+	@echo "  make run-import-uuids TABLE_NAME=my_table SAMPLE_FILE=data/other-file.csv"
 
-.PHONY: list-dynamodb-tables help
+.PHONY: list-dynamodb-tables run-import-uuids tf-apply drop-dynamodb-table help
